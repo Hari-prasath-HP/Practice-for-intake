@@ -1,7 +1,7 @@
 class Node{
     constructor(){
-        this.children = {}
-        this.isend = false;
+        this.child = {}
+        this.isend = false
     }
 }
 
@@ -10,47 +10,82 @@ class Trie{
         this.root = new Node()
     }
     insert(word){
-        let curr = this.root
+        let curr = this.root;
         for(let char of word){
-            if(!curr.children[char]){
-                curr.children[char] = new Node()
-            }curr = curr.children[char]
+            if(!curr.child[char]){
+                curr.child[char] = new Node()
+            }curr = curr.child[char]
         }curr.isend = true;
     }
     search(word){
-        let curr = this.root
+        let curr = this.root;
         for(let char of word){
-            if(!curr.children[char]){
+            if(!curr.child[char]){
                 return false;
-            }curr = curr.children[char]
+            }curr = curr.child[char]
         }return curr.isend
     }
 
     suggest(word){
-        let curr = this.root;
+        let curr = this.root
         for(let char of word){
-            if(!curr.children[char]){
+            if(!curr.child[char]){
                 return []
-            }curr = curr.children[char]
+            }curr = curr.child[char]
         }
-        let suggestions = []
-        let dfs = (node,word)=>{
+        let suggest = []
+        let dfs = (node,word) =>{
             if(node.isend){
-                suggestions.push(word)
+                suggest.push(word)
             }
-            for(let char in node.children){
-                dfs(node.children[char],word+char)
+            for(let char in node.child){
+                dfs(node.child[char],word+char)
             }
         }
         dfs(curr,word)
-        return suggestions
+        return suggest
     }
-}
+    longestprefix(word){
+        let curr = this.root;
+        let prefix = ""
+        for(let char of word){
+            if(curr.child[char]){
+                prefix += char;
+                curr = curr.child[char]
+            }else {
+                break;
+            }
+        }return prefix
+    }
+    count(word){
+        let curr = this.root
+        let count = 0
+        for(let char of word){
+            if(!curr.child[char]) break;
+            curr = curr.child[char]
+            if(curr.isend){
+                count++
+            }
+        }return count
+    }
+    commonprefix(){
+        let curr = this.root
+        let prefix = ''
+        while(true){
+            let keys = Object.keys(curr.child)
+            if(keys.length === 1 && !curr.isend){
+                prefix += keys[0]
+                curr = curr.child[keys[0]]
+            }else break;
+        }return prefix
+    }
+}   
 
 let trie = new Trie()
 trie.insert("cat")
-trie.insert("cattle")
 trie.insert("cap")
-trie.insert("car")
 console.log(trie.search("cat"))
 console.log(trie.suggest("c"))
+console.log(trie.longestprefix("capple"))
+console.log(trie.count("cattle"))
+console.log(trie.commonprefix())
