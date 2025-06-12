@@ -75,6 +75,22 @@ class Bst{
         count+=this.countleft(root.right)
         return count
     }
+    findlargest(k){
+        let count = 0
+        let result = null
+        function reverse(node){
+            if(!node || count > k)return 
+            reverse(node.right)
+            count++
+            if(count == k){
+                result = node.value
+                return 
+            }
+            reverse(node.left)
+        }
+        reverse(this.root)
+        return result
+    }
 }
 
 let bst = new Bst()
@@ -89,3 +105,5 @@ console.log(bst.search(bst.root,25))
 // bst.inorder(bst.root)
 // bst.postorder(bst.root)
 console.log(bst.countleft(bst.root))
+
+console.log(bst.findlargest(3))
