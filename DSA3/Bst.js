@@ -38,7 +38,7 @@ class Bst{
 
     search(root,value){
         if(!root){
-            return false;
+            return false;   
         }else{
             if(root.value === value){
                 return true;
@@ -68,7 +68,7 @@ class Bst{
             if(!root.right) return root.left;
             let minnode = this.minnode(root.right)
             root.value = minnode.value;
-            root.right = this.deletenode(root.right,minnode.valuex)
+            root.right = this.deletenode(root.right,minnode.value)
         }
     }
 
@@ -84,6 +84,6 @@ let bst = new Bst()
 bst.insert(45)
 bst.insert(25)
 bst.insert(55)
-console.log(bst.search(bst.root,55))
+console.log(bst.search(bst.root,25))
 bst.delete(25)
 console.log(bst.search(bst.root,25))
