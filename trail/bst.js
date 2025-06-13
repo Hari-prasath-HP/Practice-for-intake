@@ -66,6 +66,14 @@ class Bst{
         }reverse(this.root)
         return result
     }
+    height(node = this.root){
+        if(node === null){
+            return -1
+        }
+        let left = this.height(node.left)
+        let right = this.height(node.right)
+        return 1 + Math.max(left,right)
+    }
 }
 
 let bst = new Bst()
@@ -73,6 +81,9 @@ bst.insert(45)
 bst.insert(14)
 bst.insert(57)
 bst.insert(56)
+bst.insert(46)
+bst.insert(53)
 console.log(bst.search(bst.root,56))
 console.log(bst.left(bst.root))
 console.log(bst.findlargest(3))
+console.log(bst.height())
