@@ -14,7 +14,7 @@ class Heap{
         this.data[this.data.length] = key
         this.heapifyup()
     }
-    heapifyup(i){
+    heapifyup(){
         let current = this.data.length-1;
         while(current > 0 && this.data[current] > this.data[this.getparent(current)]){
             this.swap(current,this.getparent(current))
