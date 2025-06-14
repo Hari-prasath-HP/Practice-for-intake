@@ -65,4 +65,30 @@ class Bst{
         count += this.right(root.right)
         return count
     }
+    delete(value){
+        this.root = this.deletenode(this.root,value)
+    }
+    deletenode(root,value){
+        if(!root)return null
+        if(value < root.value){
+            root.left = this.deletenode(root.left,value)
+        }else if(value > root.value){
+            root.right = this.deletenode(root.right,value)
+        }else{
+            if(!root.left && !root.right){
+                return null
+            }
+            if(!root.left)return root.right
+            if(!root.right)return root.left
+            let minnode = findmin(root.right)
+            root.value = minnode.value
+            root.right = this.deletenode(root.right,minnode.value)
+        }
+    }
+    minnode(node){
+        if(node.left){
+            node = node.left
+        }return node
+    }
 }
+

@@ -11,20 +11,20 @@ class Heap{
         this.data[i2] = temp
     }
     insert(key){
-        this.data[this.data.length] = key
+        this.data.length = key
         this.heapifyUp()
     }
     heapifyUp(){
-        let curr = this.data.length-1
-        while(curr>0 && this.data[curr]>this.data[this.getparent(curr)]){
+        let curr = this.data[this.data.length-1]
+        while(curr>0&&this.data[curr] > this.data[this.getparent(curr)]){
             this.swap(curr,this.getparent(curr))
             curr = this.getparent(curr)
         }
     }
     remove(){
-        if(this.data,length==0)return null
+        if(this.data.length == 0)return null
         let max = this.data[0]
-        if(this.data.length==0){
+        if(this.data.length == 1){
             this.data.pop()
         }else{
             this.data[0] = this.data.pop()
@@ -33,17 +33,6 @@ class Heap{
     }
     heapifyDown(i){
         let largest = i
-        let left = this.getleft(i)
-        let right = this.getright(i)
-        if(left<this.data.length&&this.data[left]>this.data[this.getparent(largest)]){
-            largest = left
-        }
-        if(right<this.data.length&&this.data[right]>this.data[this.getparent(largest)]){
-            largest = right
-        }
-        if(largest != i){
-            this.swap(i,largest)
-            this.heapifyDown(largest)
-        }
+        
     }
 }
