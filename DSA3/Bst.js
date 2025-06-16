@@ -69,7 +69,7 @@ class Bst{
             let minnode = this.minnode(root.right)
             root.value = minnode.value;
             root.right = this.deletenode(root.right,minnode.value)
-        }
+        }return root
     }
 
     minnode(node){
