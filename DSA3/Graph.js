@@ -22,7 +22,17 @@ class Graph{
             this.adjacencylist[vertex2].has(vertex1)
         )
     }
-
+    removeEdge(vertex1,vertex2){
+        this.adjacencylist[vertex1].delete(vertex2)
+        this.adjacencylist[vertex2].delete(vertex1)
+    }
+    removevertex(vertex){
+        if(!this.adjacencylist[vertex])return 
+        for(let adjacent of this.adjacencylist[vertex]){
+            this.removeEdge(vertex,adjacent)
+        }
+        delete this.adjacencylist[vertex]
+    }
     display(){
         for(let vertex in this.adjacencylist){
             console.log(vertex + '->' + [...this.adjacencylist[vertex]])
@@ -39,4 +49,6 @@ graph.addvertex("C")
 graph.addedge("A","B")
 graph.addedge("B","C")
 
+graph.display()
+graph.removevertex("C")
 graph.display()

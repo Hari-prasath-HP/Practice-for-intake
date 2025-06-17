@@ -32,7 +32,7 @@ class Trie{
             }curr = curr.children[char]
         }
         let suggest = []
-        let dfs = (node,word)=>{
+        let dfs = (node,word) =>{
             if(node.isend){
                 suggest.push(word)
             }
@@ -58,26 +58,27 @@ class Trie{
         let prefix = ''
         while(true){
             let keys = Object.keys(curr.children)
-            if(keys.length===1 && !curr.isend){
+            if(keys.length == 1 && !curr.isend){
                 prefix+=keys[0]
                 curr = curr.children[keys[0]]
             }else break
-        }return prefix
+        }
+        return prefix
     }
     delete(word){
         let curr = this.root
         let path = []
         for(let char of word){
-            if(!curr.children[char])return 
+            if(!curr.children[char])return
             path.push([curr,char])
             curr = curr.children[char]
         }
-        if(!curr.isend)return
+        if(!curr.isend) return
         curr.isend = false
         for(let i=word.length-1;i>=0;i--){
             let [parent,char] = path[i]
             let node = parent.children[char]
-            if(Object.keys(node.children).length > 0|| node.isend){
+            if(Object.keys(node.children).length > 0 || node.isend){
                 break
             }
             delete parent.children[char]
@@ -104,5 +105,3 @@ trie.delete("care");
 console.log(trie.search("care")); 
 
 console.log(trie.suggest("ca"));
-
-
