@@ -10,7 +10,7 @@ class Bst{
         this.root = null
     }
     isEmpty(){
-        return this.root == null
+        return this.root === null
     }
     insert(value){
         let node = new Node(value)
@@ -19,12 +19,12 @@ class Bst{
         }else this.insertNode(this.root,node)
     }
     insertNode(root,node){
-        if(node.value<root.value){
-            if(root.left === null){
+        if(node.value < root.value){
+            if(root.left == null){
                 root.left = node
             }else this.insertNode(root.left,node)
         }else{
-            if(root.right === null){
+            if(root.right == null){
                 root.right = node
             }else this.insertNode(root.right,node)
         }
@@ -33,11 +33,11 @@ class Bst{
         let count = 0
         let result = null
         function reverse(node){
-            if(!node || count >=k){
+            if(!node || count>k){
                 return null
             }
             reverse(node.right)
-            count ++
+            count++
             if(count == k){
                 result = node.value
                 return
@@ -47,15 +47,15 @@ class Bst{
         reverse(this.root)
         return result
     }
-    countleft(root = this.root){
+    countleft(root=this.root){
         if(!root)return 0
         let count = 0
         if(root.left){
-            count+=1
+            count++
             count+=this.countleft(root.left)
         }
         count+=this.countleft(root.right)
-        return count 
+        return count
     }
     height(node){
         if(!node)return -1
@@ -64,23 +64,27 @@ class Bst{
         return 1 + Math.max(left,right)
     }
     delete(value){
-        this.root = this.deletenode(this.root,value)
+        this.root = this.deletevalue(this.root,value)
     }
-    deletenode(root,value){
-        if(!root)return null
+    deletevalue(root,value){
         if(value<root.value){
-            root.left = this.deletenode(root.left,value)
+            root.left = this.deletevalue(root.left)
         }else if(value > root.value){
-            root.right = this.deletenode(root.right,value)
+            root.right = this.deletevalue(root.right)
         }else{
-            if(!root.left && !root.right){
+            if(!root.right && !root.left){
                 return null
             }
             if(!root.left)return root.right
             if(!root.right)return root.left
             let minnode = this.findmin(root.right)
             root.value = minnode.value
-            root.right = this.deletenode(root.right,minnode.value)
+            root.right = this.deletevalue(root.right,minnode.value)
         }return root
-    }   
+    }
+    findmin(node){
+        if(node.left){
+            node = node.left
+        }return node
+    }
 }
