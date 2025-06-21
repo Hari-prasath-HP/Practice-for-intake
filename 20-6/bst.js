@@ -91,6 +91,21 @@ class Bst{
             node = node.left
         }return node
     }
+    smallest(k){
+        let count = 0
+        let result = null
+        function reverse(node){
+            if(!node || count >=k)return 
+            reverse(node.left)
+            count++
+            if(count === k){
+                result = node.value
+                return
+            }
+            reverse(node.right)
+        }reverse(this.root)
+        return result
+    }
 }
 let bst =new Bst()
 bst.insert(78)
@@ -104,3 +119,4 @@ console.log(bst.countleft())
 console.log(bst.height(bst.root))
 bst.delete(38)
 console.log(JSON.stringify(bst))
+console.log(bst.smallest(3))
