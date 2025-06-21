@@ -63,6 +63,12 @@ class Bst{
         let right = this.height(root.right)
         return 1 + Math.max(left,right)
     }
+    isBst(root,min=-Infinity,max = Infinity){
+        if(!root)return true
+        if(root.value<=min || root.value >=max)return false
+        return this.isBst(root.left,min,root.value) &&
+        this.isBst(root.right,root.value,max)
+    }
 }
 let tree = new Bst()
 tree.insert(50)
@@ -76,3 +82,4 @@ tree.insert(80)
 console.log("Left child count:", tree.countleft())         // ✅
 console.log("3rd largest:", tree.largest(3))               // ✅
 console.log("Tree height:", tree.height(tree.root))                 // ✅
+console.log(tree.isBst(tree.root))
