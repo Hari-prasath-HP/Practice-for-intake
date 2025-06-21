@@ -43,7 +43,7 @@ class Bst{
         let count = 0
         let result = null
         function reverse(node){
-            if(!node || count > k){
+            if(!node || count >= k){
                 return null
             }
             reverse(node.right)
@@ -59,8 +59,20 @@ class Bst{
     }
     height(root){
         if(root === null)return -1
-        let left = height(root.left)
+        let left = this.height(root.left)
         let right = this.height(root.right)
         return 1 + Math.max(left,right)
     }
 }
+let tree = new Bst()
+tree.insert(50)
+tree.insert(30)
+tree.insert(70)
+tree.insert(20)
+tree.insert(40)
+tree.insert(60)
+tree.insert(80)
+
+console.log("Left child count:", tree.countleft())         // ✅
+console.log("3rd largest:", tree.largest(3))               // ✅
+console.log("Tree height:", tree.height(tree.root))                 // ✅
